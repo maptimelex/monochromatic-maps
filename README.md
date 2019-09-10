@@ -5,4 +5,6 @@ One-color hillshade mapping in QGIS
 
 ![Tie-dye Kentucky](images/tie-dye-kentucky.jpg)
 
+Tutorial posted soon.
+
 
