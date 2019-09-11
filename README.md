@@ -1,5 +1,5 @@
 # monochromatic-maps
-One-color hillshade mapping in QGIS
+One-color mapping in QGIS
 
 [Fall schedule](https://github.com/maptimelex/schedule) | [Map](https://maptimelex.github.io/location/) of our new location on UK's campus
 
@@ -7,6 +7,6 @@ One-color hillshade mapping in QGIS
 
 Tutorial posted soon.
 
-Booting for series of fall #events!
-
+![First run at converting a hillshade](images/example-0.png)   
+*First run at converting a hillshade*
 
