@@ -198,17 +198,23 @@
       var bounds = new L.LatLngBounds(
         new L.LatLng(38.5, -85), // upper left
         new L.LatLng(38, -84.504280)); // lower right
-      var map = L.map('map').fitBounds(bounds);
+      var map = L.map('map', {
+        center: [37.8412859, -84.2788738],
+        zoom: 12
+      })
       var options = {
         minZoom: 1,
         maxZoom: 15,
         opacity: 1.0,
-        // tms: true,
+        tms: true,
         zoomSnap: 0.1,
         attribution: "<a href='https://uky-gis.github.io/'>UKy Geography</a>" // | &copy; <a href='https://openstreetmap.org'>OSM Contributors</a>
       };
 
-      L.tileLayer('https://outragegis.com/tiles/bluegrass_canopy/{z}/{x}/{y}.png', options).addTo(map); // add the map!
+      L.tileLayer('https://outragegis.com/tiles/bluegrass_bw/{z}/{x}/{y}.png', options).addTo(map); // add the map!
+
+      var marker = L.marker([38.038045,-84.504721]).addTo(map);
+      marker.bindPopup("<h2>Home of UKy Geography</h3>").openPopup();
     
 
       // remove banner svg on move

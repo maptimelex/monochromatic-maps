@@ -1,9 +1,24 @@
 # Monochromatic Maps in QGIS
 Custom hillshades with one color
 
-[Fall schedule](https://github.com/maptimelex/schedule) | [Map](https://maptimelex.github.io/location/) of our new location on UK's campus
-
 ![Tie-dye Kentucky](images/tie-dye-kentucky.jpg) *Tie-dye required when mapping in one hue!*
+
+<!-- TOC -->
+
+- [Monochromatic Maps in QGIS](#monochromatic-maps-in-qgis)
+    - [TL;DR](#tldr)
+    - [Preamble](#preamble)
+    - [Caveats](#caveats)
+    - [Overview](#overview)
+    - [Technique](#technique)
+        - [Basic flow](#basic-flow)
+        - [QGIS tool chain](#qgis-tool-chain)
+        - [Comparing different scales](#comparing-different-scales)
+        - [Scripting the workflow](#scripting-the-workflow)
+    - [Conclusions](#conclusions)
+    - [Would you like to present a 30-minute workshop?](#would-you-like-to-present-a-30-minute-workshop)
+
+<!-- /TOC -->
 
 ## TL;DR
 
@@ -51,7 +66,7 @@ This image is intuitive. In areas of high relief, e.g., knobs or mountains, the 
 
 In order to substitute gray areas on the hillshade with crosshatches, we need to classify the hillshade into discrete areas. The *hook* with this method is selecting the right sets of areas where you can build up crosshatching to mimic grayscale shading. Let's now turn a strategy for doing this. 
 
-## Basic flow 
+### Basic flow 
 
 OK! Now the fun begins. With QGIS up and running, here are the steps in our processing workflow.
 
@@ -63,7 +78,7 @@ OK! Now the fun begins. With QGIS up and running, here are the steps in our proc
 6. Delete polygons without shading, which helps application performance. Buffer/dissolve shade polygons can also boost application performance (not necessary but can help smooth polygons in Q).
 7. Apply line pattern fills to the finished polygons in QGIS Layer Styling panel.
 
-## QGIS tool chain
+### QGIS tool chain
 
 If you are using layers outside of Kentucky or need to reset your layer styles, **Load Style** from the *.qml* files found in the *styles* folder. 
 
@@ -181,7 +196,11 @@ Two scripts, one for macOS and Windows OS, are found in the *export* folder in t
 
 ## Conclusions
 
-QGIS provides the excellent toolkit to produce our data, but is a little too unpredictable in symbolizing features at different scales. 
+QGIS provides the excellent toolkit to produce our data, but is a little too unpredictable in symbolizing features at different scales. However, QGIS can produce PNG raster tilesets with the `gdal2tiles` tool as demonstrated in the [map of the Bluegrass](map).
+
+## Would you like to present a 30-minute workshop?
+
+Please check out our [Fall schedule](https://github.com/maptimelex/schedule). We have two 30-minute slots. The schedule can change! [Map](https://maptimelex.github.io/location/) of our new location on UK's campus
 
 
 
