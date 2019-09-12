@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+<meta charset=utf-8>
+<html>
+
+<head>
+  <title>1971 aerial imagery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel='icon' href='../favicon.ico' type='image/x-icon' />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.4/leaflet.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-size: 100%;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    a {
+      color: #004A8B;
+    }
+
+    a:hover {
+      color: rgb(67, 69, 71);
+      text-decoration: none;
+    }
+
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
+
+    /* #overlay {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      display:none;
+      z-index: 900;
+    }
+
+    #overlay img {
+      position: absolute;
+      top: 10%;
+    } */
+
+    .leaflet-container {
+      background: #fff;
+      outline: 0;
+    }
+
+    .leaflet-control-locate a {
+      font-size: 1.4em;
+      color: #444;
+      cursor: pointer
+    }
+
+    .leaflet-control-locate.active a {
+      color: #2074B6
+    }
+
+    .leaflet-control-locate.active.following a {
+      color: #FC8428
+    }
+
+    /*# sourceMappingURL=L.Control.Locate.min.css.map */
+
+    #geo_yall {
+      width: 100%;
+      z-index: 1000;
+      position: absolute;
+      top: 40%;
+
+    }
+
+    #info-button {
+      padding: 8px 5px;
+      font-size: 0.9em;
+      font-weight: bolder;
+      border: 2px solid rgba(0, 0, 0, 0.24);
+      /* background: rgba(146, 239, 146, 0.8); */
+      background: rgba(250, 250, 250, 0.9);
+      /* box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); */
+      border-radius: 5px;
+      position: fixed;
+      top: 11px;
+      right: 11px;
+      z-index: 9999;
+      cursor: pointer;
+    }
+
+    #footer {
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      font-size: 1.4em;
+      height: 0vh;
+      /* height: 50vh; */
+      padding: 0px;
+      z-index: 9000;
+      position: absolute;
+      bottom: -10px;
+      overflow: scroll;
+    }
+
+    #footer div {
+      padding: 10px;
+    }
+
+    #footer h1 {
+      font-size: 1.8em;
+      margin: 0 0 5px 20px;
+    }
+
+    #footer p {
+      font-size: 1.5em;
+      margin: 0 0 0 20px;
+    }
+
+    .footer-img {
+      float: right;
+      width: 20%;
+      margin: 10px;
+    }
+
+    .footer-svg {
+      float: left;
+      width: 60%;
+      margin: 10px;
+    }
+
+    #footer div:after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+
+    .layerLabel {
+      font-size: 1.1em;
+      font-weight: bolder;
+    }
+
+    #legend .legend-items img {
+      float: left;
+      /* width: 28px; */
+      height: 28px;
+      margin-right: 5px;
+    }
+
+    .legend-items {
+      float: left;
+      padding: 2px 10px 2px 2px;
+      margin: 0 0 8px 0;
+      font-size: 1.4em;
+    }
+
+    @media only screen and (max-width: 786px) {
+      
+      #footer h1 {
+      font-size: 1.1em;
+      margin: 0 0 5px 20px;
+    }
+
+    #footer p {
+      font-size: 0.8em;
+      margin: 0 0 0 20px;
+    }
+}
+  </style>
+
+
+</head>
+
+<body>
+  <div id="map"></div>
+  <!-- <div id="overlay"><img src="/graphics/ky_hillshade_extent.png" width="100%"> </div> -->
+  <!-- <img src="/graphics/geo_yall.svg" id="geo_yall" alt="UK Geography Y'all!" title="UK Geography Y'all!"> -->
+  <button id="info-button" onclick="myInfo()">Information</button>
+  <div id='footer'>
+    <div>
+      <a href="https://geography.as.uky.edu/"><img src="/graphics/logo-color-400px.png" class="footer-img"></a>
+      <h1>1971 aerial photography</h1>
+      <p>With 2007 street outlines & 2012 road labels. Source: <a href="https://earthexplorer.usgs.gov">USGS EarthExplorer</a> single frame photography and <a href="https://data.lexingtonky.gov/dataset/impervious_2007">Lexington Data Portal</a> vector data.</p>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.4/leaflet.js"></script>
+    <!-- <script src="../L.Control.Locate.min.js" charset="utf-8"></script> -->
+
+    <script>
+      // Define the base map of streets and bike parking in central Lexington
+      var bounds = new L.LatLngBounds(
+        new L.LatLng(38.5, -85), // upper left
+        new L.LatLng(38, -84.504280)); // lower right
+      var map = L.map('map').fitBounds(bounds);
+      var options = {
+        minZoom: 1,
+        maxZoom: 15,
+        opacity: 1.0,
+        // tms: true,
+        zoomSnap: 0.1,
+        attribution: "<a href='https://uky-gis.github.io/'>UKy Geography</a>" // | &copy; <a href='https://openstreetmap.org'>OSM Contributors</a>
+      };
+
+      L.tileLayer('https://outragegis.com/tiles/bluegrass_canopy/{z}/{x}/{y}.png', options).addTo(map); // add the map!
+    
+
+      // remove banner svg on move
+    //   map.on("zoomend", function () {
+    //     var switched  = document.getElementById("geo_yall")
+    //     switched.style.display = "none"
+    //     console.log(map.getZoom())
+    //     if (map.getZoom() < 13) {
+    //       switched.style.display = "block"
+    //     } else {
+    //       // document.getElementById("overlay").style.display = "none"
+    //       switched.style.display = "none"
+    //     }
+    //   })
+
+      // Define the location plugin parameters
+      var locate_options = {
+        watch: true,
+        enableHighAccuracy: true,
+        position: 'topleft'
+      };
+    //   L.control.locate(locate_options).addTo(map);
+
+      L.control.scale().addTo(map); // maps like this need scales, yo!
+
+
+      /* --------------- Toggle on/off info footer content ---------------  */
+      var clicked = false
+
+      function myInfo() {
+
+        var x = document.getElementById('footer');
+        if (clicked === true) {
+          x.style.height = '0px';
+        } else {
+          x.style.height = '33vh';
+        }
+
+        var y = document.getElementById('info-button');
+        if (clicked === true) {
+          y.style.background = 'rgba(230, 230, 230, 0.9)'
+          clicked = false
+        } else {
+          y.style.background = 'rgba(146, 239, 146, 0.8)'
+          clicked = true
+        }
+      }
+    </script>
+</body>
+
+</html>
