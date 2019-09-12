@@ -25,7 +25,7 @@ Custom hillshades with one color
 ![First run at converting a hillshade](images/example-0.png)   
 *Example crosshatch technique for shading*
 
-Presentation: https://gitpitch.com/boydx/geosalad/maptimeLEX-monochrome
+Presentation: [gitpitch.com](https://gitpitch.com/boydx/geosalad/maptimeLEX-monochrome)
 
 ## Preamble
 
