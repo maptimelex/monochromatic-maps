@@ -25,6 +25,8 @@ Custom hillshades with one color
 ![First run at converting a hillshade](images/example-0.png)   
 *Example crosshatch technique for shading*
 
+Presentation: https://gitpitch.com/boydx/geosalad/maptimeLEX-monochrome
+
 ## Preamble
 
 We are glad to reboot this fine tradition of exploring and sharing open source mapping techniques. One of the esteemed organizers who has since migrated outside of Kentucky had one plea for us; make sure our maps maximize [spatial oomph](spatialoomph.mp3). To the goal we selected a challenge to map under severe constraints by using only one color and exactly one color. No color ramps or gradients are allowed, because it is a trivial affair to convert a grayscale map to any hue as demonstrated in Photoshop.
