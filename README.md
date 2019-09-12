@@ -196,7 +196,7 @@ Two scripts, one for macOS and Windows OS, are found in the *export* folder in t
 
 ## Conclusions
 
-QGIS provides the excellent toolkit to produce our data, but is a little too unpredictable in symbolizing features at different scales. However, QGIS can produce PNG raster tilesets with the `gdal2tiles` tool as demonstrated in the [map of the Bluegrass](map).
+QGIS provides the excellent toolkit to produce our data, but is a little too unpredictable in symbolizing features at different scales. However, QGIS can produce PNG raster tilesets with the `gdal2tiles` tool as demonstrated in the [map of the Bluegrass](https://maptimelex.github.io/monochromatic-maps/map/).
 
 ## Would you like to present a 30-minute workshop?
 
